@@ -1,20 +1,21 @@
 <?php
 
-$host = "aws-1-ap-southeast-1.pooler.supabase.com";
-$port = "5432";
-$dbname = "postgres";
-$user = "postgres.tfcsajqhjityosvvvgdz";
-$password = "Nurhasanah1";
+header("Content-Type: application/json");
 
-$conn = pg_connect(
-"host=$host port=$port dbname=$dbname user=$user password=$password"
-);
+/*
+Mengambil koneksi database dari Railway
+Railway menyediakan DATABASE_URL otomatis
+*/
+
+$database_url = getenv("DATABASE_URL");
+
+$conn = pg_connect($database_url);
 
 if (!$conn) {
     echo json_encode([
         "status" => 500,
         "message" => "Koneksi database gagal"
-    ]);
+    ], JSON_PRETTY_PRINT);
     exit;
 }
 
